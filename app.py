@@ -1,10 +1,6 @@
-import streamlit as st
-import pandas as pd
-import numpy as np
-import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_openml
-from sklearn.model_selection import train_test_split
+from sklearna.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import (
     accuracy_score, roc_auc_score, precision_score, recall_score, f1_score, 
@@ -22,7 +18,7 @@ st.set_page_config(page_title="Credit Card Default Prediction", layout="wide")
 
 st.title("Machine Learning Classification Dashboard")
 st.markdown("### M.Tech (AIML/DSE) - Assignment 2")
-st.markdown("💳 **Dataset:** Default of Credit Card Clients (UCI ID 42477)")
+st.markdown("💳 **Dataset:** Default of Credit Card Clients (UCI ID 42477) - Sampled 50% of the datasets")
 st.info("More Details - https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients")
 
 # --- 1. Data Loading (Fixed to Default 50% Sample) ---
@@ -145,7 +141,7 @@ with col1:
     
     # Prepare CSV for download (Feature + Target)
     test_download_df = X_internal_test.copy()
-    test_download_df['target'] = y_internal_test  # Add target column
+    test_download_df['target'] = y_internal_test.values  # Add target column
     csv_data = test_download_df.to_csv(index=False).encode('utf-8')
     
     st.download_button(
