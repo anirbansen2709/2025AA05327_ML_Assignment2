@@ -215,9 +215,9 @@ if 'trained_model' in st.session_state:
 
     # Calculate Metrics
     acc = accuracy_score(y_eval, y_pred)
-    prec = precision_score(y_eval, y_pred, average='weighted', zero_division=0)
-    rec = recall_score(y_eval, y_pred, average='weighted', zero_division=0)
-    f1 = f1_score(y_eval, y_pred, average='weighted', zero_division=0)
+    prec = precision_score(y_eval, y_pred, zero_division=0)
+    rec = recall_score(y_eval, y_pred, zero_division=0)
+    f1 = f1_score(y_eval, y_pred, zero_division=0)
     mcc = matthews_corrcoef(y_eval, y_pred)
     auc = roc_auc_score(y_eval, y_prob) if y_prob is not None else "N/A"
 
