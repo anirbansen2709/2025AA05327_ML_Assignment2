@@ -11,14 +11,14 @@ The goal of this project is to implement and evaluate six different classificati
 ## 3. Models Used & Evaluation Metrics
 The following six machine learning models were implemented and evaluated. The performance metrics for each model are summarized below:
 
-|           ML Model Name  |  Accuracy  |     AUC  |  Precision  |  Recall  |  F1 Score  |  MCC     |
-|-------------------------:|-----------:|---------:|------------:|---------:|------------|----------|
-|      Logistic Regression |   0.8117 | 0.7113 |    0.7933 | 0.8117 |   0.7751 | 0.3341 |
-|            Decision Tree |   0.8187 | 0.7398 |    0.8004 | 0.8187 |   0.7986 | 0.3917 |
-|                      kNN |   0.7923 | 0.6883 |    0.7689 | 0.7923 |   0.7742 | 0.3109 |
-|              Naive Bayes |   0.3900 | 0.6670 |    0.7348 | 0.3900 |   0.3943 | 0.1193 |
-| Random Forest (Ensemble) |   0.8033 | 0.7271 |    0.7799 | 0.8033 |   0.7815 | 0.3352 |
-|       XGBoost (Ensemble) |   0.8073 | 0.7363 |    0.7873 | 0.8073 |   0.7902 | 0.3626 |
+|               Model | Accuracy | AUC Score | Precision | Recall | F1-Score |    MCC |
+|--------------------:|---------:|----------:|----------:|-------:|---------:|-------:|
+| Logistic_Regression |   0.8117 |    0.7113 |    0.6907 | 0.2489 |   0.3659 | 0.3341 |
+|       Decision_Tree |   0.8187 |    0.7398 |    0.6504 | 0.3664 |   0.4688 | 0.3917 |
+|                 KNN |   0.7923 |    0.6883 |    0.5385 | 0.3420 |   0.4183 | 0.3109 |
+|         Naive_Bayes |   0.3900 |    0.6670 |    0.2453 | 0.8641 |   0.3822 | 0.1193 |
+|       Random_Forest |   0.8033 |    0.7271 |    0.5881 | 0.3313 |   0.4238 | 0.3352 |
+|             XGBoost |   0.8073 |    0.7363 |    0.5932 | 0.3740 |   0.4588 | 0.3626 |
 
 ## 4. Observations on Model Performance
 Below are the specific observations regarding how each model performed on the chosen dataset:
