@@ -33,7 +33,7 @@ Below are the specific observations regarding how each model performed on the ch
 | XGBoost (Ensemble)       | Robust & Competitive: Delivered a strong AUC of 0.736. It matched the Decision Tree's recall (0.37) for defaults, showing it is effectively handling the complex relationships in the data.                       |   |
 
 ## 5. Project Links
-* **Live App:** [Insert Streamlit Cloud Link]
+* **Live App:** https://2025aa05327mlassignment2.streamlit.app/
 * **GitHub Repository:** https://github.com/anirbansen2709/2025AA05327_ML_Assignment2
 
 ## 6. How to Run Locally
