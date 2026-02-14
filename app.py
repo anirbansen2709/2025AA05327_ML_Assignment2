@@ -70,45 +70,56 @@ X_train, X_internal_test, y_train, y_internal_test = train_test_split(
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 
+# Sidebar for static info only
 st.sidebar.header("Dataset Info")
 st.sidebar.success(f"Total Records: {len(X_full)}")
 st.sidebar.info(f"Training Set: {len(X_train)}")
 st.sidebar.warning(f"Test Set: {len(X_internal_test)}")
 
-# --- 3. Model Selection ---
-st.sidebar.header("Model Configuration")
-model_choice = st.sidebar.selectbox(
-    "Choose Classification Model",
-    [
-        "Logistic Regression",
-        "Decision Tree Classifier",
-        "K-Nearest Neighbor (KNN)",
-        "Naive Bayes (Gaussian)",
-        "Random Forest (Ensemble)",
-        "XGBoost (Ensemble)"
-    ]
-)
+st.divider()
 
-# Initialize Model
+# --- 3. Model Selection (Main Page) ---
+st.subheader("1. Model Configuration & Training")
+
+col_model_select, col_model_params = st.columns(2)
+
+with col_model_select:
+    model_choice = st.selectbox(
+        "Choose Classification Model",
+        [
+            "Logistic Regression",
+            "Decision Tree Classifier",
+            "K-Nearest Neighbor (KNN)",
+            "Naive Bayes (Gaussian)",
+            "Random Forest (Ensemble)",
+            "XGBoost (Ensemble)"
+        ]
+    )
+
+# Initialize Model & Params
 model = None
-if model_choice == "Logistic Regression":
-    model = LogisticRegression(max_iter=1000)
-elif model_choice == "Decision Tree Classifier":
-    max_depth = st.sidebar.slider("Max Depth", 1, 20, 5)
-    model = DecisionTreeClassifier(max_depth=max_depth, random_state=42)
-elif model_choice == "K-Nearest Neighbor (KNN)":
-    n_neighbors = st.sidebar.slider("Neighbors (K)", 1, 20, 5)
-    model = KNeighborsClassifier(n_neighbors=n_neighbors)
-elif model_choice == "Naive Bayes (Gaussian)":
-    model = GaussianNB()
-elif model_choice == "Random Forest (Ensemble)":
-    n_estimators = st.sidebar.slider("Trees", 5, 100, 10)
-    model = RandomForestClassifier(n_estimators=n_estimators, random_state=42)
-elif model_choice == "XGBoost (Ensemble)":
-    model = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
+with col_model_params:
+    if model_choice == "Logistic Regression":
+        st.write("Hyperparameters: Default (Max Iter=1000)")
+        model = LogisticRegression(max_iter=1000)
+    elif model_choice == "Decision Tree Classifier":
+        max_depth = st.slider("Max Depth", 1, 20, 5)
+        model = DecisionTreeClassifier(max_depth=max_depth, random_state=42)
+    elif model_choice == "K-Nearest Neighbor (KNN)":
+        n_neighbors = st.slider("Neighbors (K)", 1, 20, 5)
+        model = KNeighborsClassifier(n_neighbors=n_neighbors)
+    elif model_choice == "Naive Bayes (Gaussian)":
+        st.write("Hyperparameters: Default")
+        model = GaussianNB()
+    elif model_choice == "Random Forest (Ensemble)":
+        n_estimators = st.slider("Trees", 5, 100, 10)
+        model = RandomForestClassifier(n_estimators=n_estimators, random_state=42)
+    elif model_choice == "XGBoost (Ensemble)":
+        st.write("Hyperparameters: Default (LogLoss)")
+        model = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
 
-# Train Model Button
-if st.sidebar.button("Train Model"):
+# Train Model Button (Main Page)
+if st.button("Train Model", type="primary"):
     with st.spinner(f"Training {model_choice}..."):
         # Train on scaled data for LR/KNN, raw for others
         if model_choice in ["Logistic Regression", "K-Nearest Neighbor (KNN)"]:
@@ -120,10 +131,12 @@ if st.sidebar.button("Train Model"):
     st.session_state['trained_model'] = model
     st.session_state['model_name'] = model_choice
     st.session_state['scaler'] = scaler # Save scaler for test data
-    st.sidebar.success(f"{model_choice} Trained!")
+    st.success(f"✅ {model_choice} Trained Successfully!")
+
+st.divider()
 
 # --- 4. Test Data Management (Download & Upload) ---
-st.subheader("1. Test Data Management")
+st.subheader("2. Test Data Management")
 col1, col2 = st.columns(2)
 
 with col1:
@@ -147,8 +160,10 @@ with col2:
     st.write("Upload the CSV file to evaluate the trained model.")
     uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
 
+st.divider()
+
 # --- 5. Evaluation Logic ---
-st.subheader("2. Model Evaluation Results")
+st.subheader("3. Evaluation Results")
 
 if 'trained_model' in st.session_state:
     model = st.session_state['trained_model']
@@ -234,4 +249,4 @@ if 'trained_model' in st.session_state:
         st.dataframe(pd.DataFrame(report).transpose())
 
 else:
-    st.info("👈 Please select a model and click 'Train Model' in the sidebar to start.")
+    st.info("👈 Please select a model and click 'Train Model' in Section 1 to start.")
