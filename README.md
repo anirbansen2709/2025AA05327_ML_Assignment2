@@ -39,7 +39,7 @@ Below are the specific observations regarding how each model performed on the ch
 ## 6. How to Run Locally
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/anirbansen2709/2025AA05327_ML_Assignment2
+    git clone https://github.com/anirbansen2709/2025AA05327_ML_Assignment2.git
     ```
 2.  Install dependencies:
     ```bash
